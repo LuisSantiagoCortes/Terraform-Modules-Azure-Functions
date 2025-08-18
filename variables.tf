@@ -25,21 +25,21 @@ variable "storage_replication_type" {
   default     = "LRS"
 }
 
-variable "app_service_name" {
+variable "service_name" {
   type        = string
   description = "Nombre del App Service Plan"
 }
 
-variable "app_service_plan_sku_tier" {
+variable "service_plan_os_type" {
   type        = string
-  description = "Nivel del sku del App Service Plan"
-  default     = "Standard"
+  description = "Tipo de sistema operativo del App Service Plan"
+  default     = "Linux"
 }
 
-variable "app_service_plan_sku_size" {
+variable "service_plan_sku" {
   type        = string
-  description = "Tamaño del sku del App Service Plan"
-  default     = "S1"
+  description = "SKU del App Service Plan"
+  default     = "P1v2"
 }
 
 variable "function_name" {

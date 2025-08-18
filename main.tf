@@ -6,22 +6,20 @@ resource "azurerm_storage_account" "storage" {
   account_replication_type = var.storage_replication_type
 }
 
-resource "azurerm_app_service_plan" "service_plan" {
-  name                = var.app_service_name
+resource "azurerm_service_plan" "service_plan" {
+  name                = var.service_name
   location            = var.rg_location
   resource_group_name = var.rg_name
-
-  sku {
-    tier = var.app_service_plan_sku_tier
-    size = var.app_service_plan_sku_size
-  }
+  os_type             = var.service_plan_os_type
+  sku_name            = var.service_plan_sku
 }
 
-resource "azurerm_function_app" "azure_function" {
+resource "azurerm_linux_function_app" "azure_function" {
   name                       = var.function_name
   location                   = var.rg_location
   resource_group_name        = var.rg_name
-  app_service_plan_id        = azurerm_app_service_plan.service_plan.id
+  service_plan_id        = azurerm_service_plan.service_plan.id
   storage_account_name       = azurerm_storage_account.storage.name
   storage_account_access_key = azurerm_storage_account.storage.primary_access_key
+  site_config {}
 }
